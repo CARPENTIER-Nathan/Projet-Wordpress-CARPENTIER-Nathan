@@ -36,7 +36,7 @@ class NC_Projet_Install {
                 `nom` VARCHAR(255) NOT NULL,
                 `civilite` VARCHAR(255) NOT NULL,
                 `email` VARCHAR(255) NOT NULL,
-                `date-naissance` DATETIME DEFAULT NOT NULL,
+                `date-naissance` DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB '. $charset_collate;
             dbDelta($sql_utilisateur);
@@ -54,7 +54,7 @@ class NC_Projet_Install {
             ) ENGINE=InnoDB '. $charset_collate;
             dbDelta($sql_voyages_effectuer);
         }
-
+ 
     }
 
     public function TableExistant($table) {
