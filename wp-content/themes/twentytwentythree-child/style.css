@@ -1,0 +1,9 @@
+/*
+Author:       Nat
+Template:     twentytwentythree
+Version:      1.0.0
+*/
+
+#loading { position:  fixed; width: 100vw; height: 100vh; z-index: 99999; opacity: .75; display: none; top: 0; }
+#loading .col { height: 100vh; }
+#loading .preloader-wrapper { margin: auto; display: block; margin-top: calc(100vh / 2 - 64px / 2); } 

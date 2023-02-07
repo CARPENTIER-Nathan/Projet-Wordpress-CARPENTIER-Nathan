@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-regular-400.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-regular-400.ttf") format("truetype"); }
+  
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-solid-900.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-solid-900.ttf") format("truetype"); }
+  
+@font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-display: block;
+    font-weight: 400;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-brands-400.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-brands-400.ttf") format("truetype"); }
+
+.deleted::before{
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    content: "\f1f8";
+}
