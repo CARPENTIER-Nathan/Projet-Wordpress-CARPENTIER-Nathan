@@ -92,5 +92,49 @@ jQuery( document ).ready(function(){
         });
 
     })
+
+    jQuery('.DispoMajeur').on('change', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+
+        var select_dispomajeur = null;
+        for(var boucle = 0 ; boucle < document.getElementsByClassName('DispoMajeur').length ; boucle++){
+            if(document.querySelectorAll('.DispoMajeur')[boucle].checked == true){ 
+                if(select_dispomajeur == null){
+                    select_dispomajeur = document.querySelectorAll('.DispoMajeur')[boucle].value;
+                }
+                else{
+                    select_dispomajeur = select_dispomajeur+","+document.querySelectorAll('.DispoMajeur')[boucle].value;
+                }
+            }
+        }
+
+        let formData = new FormData();
+        formData.append('action', 'voyagesmajeur');
+        formData.append('security', adminscript.security);
+        formData.append('tableau_dispomajeur', select_dispomajeur);
+        formData.append('taille_tableau', document.getElementsByClassName('DispoMajeur').length);
+
+        jQuery.ajax({
+            url: ajaxurl,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: 'post',
+
+            success: function(reponse){
+                console.log(reponse);
+                return false;
+            },
+            error: function(reponse){
+                console.log(reponse);
+                return false;
+            }
+        });
+    })
     
 })

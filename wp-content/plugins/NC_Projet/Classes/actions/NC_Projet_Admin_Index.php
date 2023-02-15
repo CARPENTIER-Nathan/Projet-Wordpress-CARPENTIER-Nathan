@@ -53,7 +53,28 @@ class NC_Projet_Admin_Index {
     }
 
     public static function Voyages_Majeur(){
-        print $_REQUEST;
+        global $wpdb;
+        check_ajax_referer('ajax_nonce_security', 'security');
+        if ((!isset($_REQUEST)) || sizeof(@$_REQUEST) < 1){
+            exit;
+        }
+
+        $taille_tableau = $_REQUEST['taille_tableau'];
+        $valeur_dispomajeur = explode(",",$_REQUEST['tableau_dispomajeur']);
+        $NC_Projet_CRUD = new NC_PROJET_CRUD();
+
+        for($tab = 0 ; $tab < $taille_tableau; $tab++){
+            for($boucle = 0; $boucle < sizeof($valeur_dispomajeur) ; $boucle++){
+                if($tab == $valeur_dispomajeur[$boucle]){
+                    $NC_Projet_CRUD->update("dispo-majeur","1",$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$valeur_dispomajeur[$boucle]);
+                    $boucle = sizeof($valeur_dispomajeur);
+                }
+                else{
+                    $NC_Projet_CRUD->update("dispo-majeur","0",$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$tab);
+                }
+            }
+        }
+        print "Mise à jour faite !";
     }
 
 
