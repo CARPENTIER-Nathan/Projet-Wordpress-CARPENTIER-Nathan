@@ -21,7 +21,7 @@ class NC_Projet_Install {
                 `pays` VARCHAR(255) NOT NULL,
                 `ISO alpha-3` VARCHAR(3) NOT NULL,
                 `note` INT(5) NOT NULL,
-                `dispo-majeur` BOOLEAN,
+                `reserver-majeur` BOOLEAN,
                 `actif-inactif` BOOLEAN,
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB '. $charset_collate;
@@ -532,7 +532,7 @@ class NC_Projet_Install {
                                                                                 'pays'=> $pays[$i], 
                                                                                 'ISO alpha-3'=> $ISO3[$i], 
                                                                                 'note'=> 3, 
-                                                                                'dispo-majeur'=>true,
+                                                                                'reserver-majeur'=>true,
                                                                                 'actif-inactif'=> true
                                                                             ));
                 }

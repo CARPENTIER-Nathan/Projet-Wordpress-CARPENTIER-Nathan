@@ -72,7 +72,8 @@ class NC_Projet_Admin{
     }
 
     public function page_prospects(){
-
+        $NC_Projet_Prospects = new NC_Projet_View_Prospects();
+        $NC_Projet_Prospects->affichage();
     }
 }
 

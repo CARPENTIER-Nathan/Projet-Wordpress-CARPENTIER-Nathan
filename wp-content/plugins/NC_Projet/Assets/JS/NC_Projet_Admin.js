@@ -1,4 +1,6 @@
 jQuery( document ).ready(function(){
+
+    // Page - Configuration //
     jQuery('#liste_pays').on('click', function(e){
         e.stopPropagation();
         e.preventDefault();
@@ -49,20 +51,24 @@ jQuery( document ).ready(function(){
 
         return;
     })
+    //----------------------//
 
+    // Page - Liste Pays       //
     jQuery('.PaysNote').on('change', function(e){
         e.stopPropagation();
         e.preventDefault();
 
-        var select_note = null;
-        for(var boucle = 0 ; boucle < document.getElementsByClassName('PaysNote').length ; boucle++){
-            if(select_note == null){
-                select_note = document.querySelectorAll('.PaysNote')[boucle].value;
-            }
-            else{
-                select_note = select_note+","+document.querySelectorAll('.PaysNote')[boucle].value;
-            }
-        }
+
+        var _this = jQuery(this);
+        var select_note = _this.data();
+        // for(var boucle = 0 ; boucle < document.getElementsByClassName('PaysNote').length ; boucle++){
+        //     if(select_note == null){
+        //         select_note = document.querySelectorAll('.PaysNote')[boucle].value;
+        //     }
+        //     else{
+        //         select_note = select_note+","+document.querySelectorAll('.PaysNote')[boucle].value;
+        //     }
+        // }
 
         let formData = new FormData();
         formData.append('action', 'voyagesnote');
@@ -93,21 +99,12 @@ jQuery( document ).ready(function(){
 
     })
 
-    jQuery('.DispoMajeur').on('change', function(e){
+    jQuery('.DispoMajeur').on('change', function(e){    
         e.stopPropagation();
         e.preventDefault();
 
-        var select_dispomajeur = null;
-        for(var boucle = 0 ; boucle < document.getElementsByClassName('DispoMajeur').length ; boucle++){
-            if(document.querySelectorAll('.DispoMajeur')[boucle].checked == true){ 
-                if(select_dispomajeur == null){
-                    select_dispomajeur = document.querySelectorAll('.DispoMajeur')[boucle].value;
-                }
-                else{
-                    select_dispomajeur = select_dispomajeur+","+document.querySelectorAll('.DispoMajeur')[boucle].value;
-                }
-            }
-        }
+        var _this = jQuery(this);
+        var select_dispomajeur = _this.data();
 
         let formData = new FormData();
         formData.append('action', 'voyagesmajeur');
@@ -136,5 +133,8 @@ jQuery( document ).ready(function(){
             }
         });
     })
-    
+    //-------------------------//
+
+    // Page - Prospects //
+
 })
