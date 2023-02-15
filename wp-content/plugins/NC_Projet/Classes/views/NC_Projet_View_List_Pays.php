@@ -23,6 +23,7 @@ class NC_Projet_View_List_Pays{
             <h1 class="wp-heading-inline"><?php print get_admin_page_title(); ?></h1>
             <hr class="wp-header-end" />
             <div class="wrap" id="list-table">
+            Les pays où la checkbox sera valide/coché ne pourront pas être disponible au mineur.
                 <form id="list-table-form" method="post">
                     <?php
                     $page  = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRIPPED );
@@ -42,7 +43,7 @@ class NC_Projet_View_List_Pays{
                                 Note de 0 à 5
                             </td>
                             <td>
-                                Disponible au majeur
+                                Réserver aux majeurs
                             </td>
                         </tr>
                         <?php 
@@ -63,10 +64,10 @@ class NC_Projet_View_List_Pays{
                                 print("</select> </td>");
 
                                 if($pays["dispo-majeur"] == 1){
-                                    printf("<td> <input type=\"checkbox\" id=\"DispoMajeur\" value=\"%d\" checked> </td>",$pays["id"]);
+                                    printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\" checked> </td>",$pays["id"]);
                                 }
                                 else{
-                                    printf("<td> <input type=\"checkbox\" id=\"DispoMajeur\" value=\"%d\"> </td>",$pays["id"]);
+                                    printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\"> </td>",$pays["id"]);
                                 }
                             print("</tr>");
                         }
