@@ -3,20 +3,18 @@ jQuery( document ).ready(function(){
         e.stopPropagation();
         e.preventDefault();
 
-        var _this = jQuery(this);
-
-        var select = document.getElementById("liste_pays");
+        var select_pays = document.getElementById("liste_pays");
         var valeur_select = null;
 
-        nb_pays = select.length;
+        nb_pays = select_pays.length;
         for(nb_select = 0; nb_select < nb_pays; nb_select++){
-            if(select[nb_select].selected){
+            if(select_pays[nb_select].selected){
                 if(valeur_select == null){
-                    valeur_select = select.options[nb_select].value;
+                    valeur_select = select_pays.options[nb_select].value;
 
                 }
                 else{
-                    valeur_select = select.options[nb_select].value+","+valeur_select;
+                    valeur_select = select_pays.options[nb_select].value+","+valeur_select;
                 }
             }
         }
@@ -25,7 +23,7 @@ jQuery( document ).ready(function(){
         formData.append('action', 'voyagesactif');
         formData.append('security', adminscript.security);
         formData.append('tableau_selected', valeur_select);
-        formData.append('taille_tableau', select.length);
+        formData.append('taille_tableau', select_pays.length);
 
 
         jQuery.ajax({
@@ -52,4 +50,47 @@ jQuery( document ).ready(function(){
         return;
     })
 
+    jQuery('.PaysNote').on('change', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+
+        var select_note = null;
+        for(var boucle = 0 ; boucle < document.getElementsByClassName('PaysNote').length ; boucle++){
+            if(select_note == null){
+                select_note = document.querySelectorAll('.PaysNote')[boucle].value;
+            }
+            else{
+                select_note = select_note+","+document.querySelectorAll('.PaysNote')[boucle].value;
+            }
+        }
+
+        let formData = new FormData();
+        formData.append('action', 'voyagesnote');
+        formData.append('security', adminscript.security);
+        formData.append('tableau_note', select_note);
+        formData.append('taille_tableau', document.getElementsByClassName('PaysNote').length);
+
+        jQuery.ajax({
+            url: ajaxurl,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: 'post',
+
+            success: function(reponse){
+                console.log(reponse);
+                return false;
+            },
+            error: function(reponse){
+                console.log(reponse);
+                return false;
+            }
+        });
+
+    })
+    
 })

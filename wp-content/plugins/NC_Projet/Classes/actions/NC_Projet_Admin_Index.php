@@ -1,6 +1,8 @@
 <?php
 
 add_action('wp_ajax_voyagesactif', array('NC_Projet_Admin_Index', 'Voyages_Actif'));
+add_action('wp_ajax_voyagesnote', array('NC_Projet_Admin_Index', 'Voyages_Note'));
+add_action('wp_ajax_voyagesmajeur', array('NC_Projet_Admin_Index', 'Voyages_Majeur'));
 
 
 class NC_Projet_Admin_Index {
@@ -29,6 +31,29 @@ class NC_Projet_Admin_Index {
             }
         }
         print "Mise à jour faite !";
+    }
+
+    public static function Voyages_Note(){
+
+        global $wpdb;
+        check_ajax_referer('ajax_nonce_security', 'security');
+        if ((!isset($_REQUEST)) || sizeof(@$_REQUEST) < 1){
+            exit;
+        }
+
+        $taille_tableau = $_REQUEST['taille_tableau'];
+        $valeur_note = explode(",", $_REQUEST['tableau_note']);
+        $NC_Projet_CRUD = new NC_PROJET_CRUD();
+
+        for($tab = 0 ; $tab < $taille_tableau ; $tab++){
+            $NC_Projet_CRUD->update("note",$valeur_note[$tab],$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$tab+1);
+        }
+
+        print "Mise à jour des notes faite !";
+    }
+
+    public static function Voyages_Majeur(){
+        print $_REQUEST;
     }
 
 

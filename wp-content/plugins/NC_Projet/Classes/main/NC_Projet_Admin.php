@@ -67,7 +67,8 @@ class NC_Projet_Admin{
     }
 
     public function page_pays(){
-
+        $NC_Projet_List_Pays = new NC_Projet_View_List_Pays();
+        $NC_Projet_List_Pays->affichage();
     }
 
     public function page_prospects(){
