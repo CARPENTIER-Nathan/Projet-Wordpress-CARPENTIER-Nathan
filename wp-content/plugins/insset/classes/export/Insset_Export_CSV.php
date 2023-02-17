@@ -22,7 +22,8 @@
     $heads = array(
         "Prenom",
         "Nom",
-        "Email"
+        "Email",
+        "Code Postal"
     );
     print '"'.implode('"; "', $heads)."\"\n";
 
@@ -38,7 +39,8 @@
         $fields = array(
             (string) $sign['firstname'],
             (string) $sign['lastname'],
-            (string) $sign['email']
+            (string) $sign['email'],
+            (string) $sign['code_postal'],
         );
 
         print '"'.implode('"; "', $fields)."\"\n";
