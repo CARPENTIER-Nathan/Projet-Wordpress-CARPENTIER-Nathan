@@ -30,7 +30,7 @@ jQuery( document ).ready(function(){
             formData.append('civilite', civilite);
             formData.append('email', email);
             formData.append('date-naissance', date_naissance);
-            formData.append('error', null);
+            formData.append('error', 0);
         }
         else{
             formData.append('prenom', null);
@@ -53,10 +53,11 @@ jQuery( document ).ready(function(){
             type: 'post',
 
             success: function(reponse){
-                window.location.replace("http://localhost/Cours/wordpress/2023/02/21/73/");
+                console.log(reponse);
                 return false;
             },
             error: function(reponse){
+                window.location.replace("http://localhost/Cours/wordpress/2023/02/21/65/");
                 console.log(reponse);
                 return false;
             }

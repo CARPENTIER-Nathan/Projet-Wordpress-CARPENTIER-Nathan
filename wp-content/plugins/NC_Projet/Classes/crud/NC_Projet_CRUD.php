@@ -16,7 +16,7 @@ class NC_Projet_CRUD{
                                 'date-naissance' => $tab_valeur[4]
                             ) 
                         );
-            return true;
+            return "Insertion de l'utilisateur : OK ";
         }
 
         if($table == $wpdb->prefix.NC_PROJET_BASENAME."_voyages_effectuer"){
@@ -27,13 +27,11 @@ class NC_Projet_CRUD{
                                 'voyages' => $tab_valeur[1]
                             ) 
                         );
-            return true;
+            return "Insertion des voyages effectuer par l'utilisateur : OK ";
         }
-        return false;
+        return "Erreur sur l'écriture du nom de la table ciblé";
 
     }
-
-    public function delete(){}
     
     public function result($element_souhaiter, $table, $params = 1){
         

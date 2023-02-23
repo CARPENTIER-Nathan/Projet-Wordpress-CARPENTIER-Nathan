@@ -13,9 +13,7 @@ class NC_Projet_Front_Index{
             exit;
         }
 
-        $erreur = $_REQUEST['error'];
-    
-        if($erreur == null){
+        if($_REQUEST['error'] == 0){
 
             $tableau_utilisateur[0] = $_REQUEST['prenom'];
             $tableau_utilisateur[1] = $_REQUEST['nom'];
@@ -29,12 +27,18 @@ class NC_Projet_Front_Index{
             $tableau_utilisateur[3] = $_REQUEST['email'];
             $tableau_utilisateur[4] = $_REQUEST['date-naissance'];
 
+
             $NC_Projet_CRUD = new NC_PROJET_CRUD();
-            $NC_Projet_CRUD->insert($wpdb->prefix.NC_PROJET_BASENAME."_utilisateurs", $tableau_utilisateur);
-            print "Ajoute de l'utilisateur : ".$tableau_utilisateur[2].". ".$tableau_utilisateur[1];
+            print $NC_Projet_CRUD->insert($wpdb->prefix.NC_PROJET_BASENAME."_utilisateurs", $tableau_utilisateur);
+
+            // print $NC_Projet_CRUD->result(`id`, $wpdb->prefix.NC_PROJET_BASENAME."_utilisateurs" , "`prenom`=".$tableau_utilisateur[0]." AND 
+            //                                                                                           `nom`=".$tableau_utilisateur[1]." AND
+            //                                                                                           `civilite`=".$tableau_utilisateur[2]." AND
+            //                                                                                           `email`=".$tableau_utilisateur[3]." AND
+            //                                                                                           `date-naissance`=".$tableau_utilisateur[4].";");
         }
         else{
-            print $erreur; 
+            print $_REQUEST['error']; 
         }
 
     }

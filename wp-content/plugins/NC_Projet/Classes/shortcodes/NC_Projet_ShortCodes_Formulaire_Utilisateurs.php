@@ -8,7 +8,7 @@ class NC_Projet_ShortCodes_Formulaires_Utilisateurs{
 
         $date_actuel = date('Y-m-d');
         return "
-        <form id=\"formulaire_utilisateur\" class=\"formulaire_utilisateur\" method=\"POST\">
+        <form id=\"formulaire_utilisateur\" class=\"formulaire_utilisateur\" method=\"POST\" action=\"http://localhost/Cours/wordpress/2023/02/21/73/\">
             <fieldset>
                 <legend> <?php_e('Your coords')?> </legend>
                     Nom :
