@@ -15,6 +15,7 @@ define('NC_PROJET_FILE', __FILE__);
 define('NC_PROJET_DIR', dirname(NC_PROJET_FILE));
 define('NC_PROJET_BASENAME', pathinfo((NC_PROJET_FILE))['filename']);
 define('NC_PROJET_PLUGIN_NAME', NC_PROJET_BASENAME);
+define('NC_PROJET_URL', 'Page-Utilisateur');
 
 foreach (glob(NC_PROJET_DIR .'/Classes/*/*.php') as $filename){
     if (!preg_match('/export|cron/i', $filename)){

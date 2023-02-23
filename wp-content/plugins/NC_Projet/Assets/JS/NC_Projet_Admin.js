@@ -135,6 +135,4 @@ jQuery( document ).ready(function(){
     })
     //-------------------------//
 
-    // Page - Prospects //
-
 })
