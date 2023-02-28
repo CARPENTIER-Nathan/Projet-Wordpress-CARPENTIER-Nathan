@@ -55,10 +55,10 @@ class NC_Projet_View_List_Pays{
                                 print("<td> <select class=\"PaysNote\">");
                                 for($i = 0; $i <= 5; $i++){
                                     if($i == $pays["note"]){
-                                        printf("<option value=\"%d\" selected> %d </option>",$i,$i);
+                                        printf("<option value=\"%d:%d\" selected> %d </option>",$pays["id"],$i,$i);
                                     }
                                     else{
-                                        printf("<option value=\"%d\"> %d </option>",$i,$i);
+                                        printf("<option value=\"%d:%d\"> %d </option>",$pays["id"],$i,$i);
                                     }
                                 }
                                 print("</select> </td>");

@@ -42,12 +42,10 @@ class NC_Projet_Admin_Index {
         }
 
         $taille_tableau = $_REQUEST['taille_tableau'];
-        $valeur_note = explode(",", $_REQUEST['tableau_note']);
+        $valeur_note = explode(":", $_REQUEST['tableau_note']);
         $NC_Projet_CRUD = new NC_PROJET_CRUD();
 
-        for($tab = 0 ; $tab < $taille_tableau ; $tab++){
-            $NC_Projet_CRUD->update("note",$valeur_note[$tab],$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$tab+1);
-        }
+        $NC_Projet_CRUD->update("note",$valeur_note[1],$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$valeur_note[0]);
 
         print "Mise à jour des notes faite !";
     }
@@ -59,21 +57,18 @@ class NC_Projet_Admin_Index {
             exit;
         }
 
-        $taille_tableau = $_REQUEST['taille_tableau'];
-        $valeur_dispomajeur = explode(",",$_REQUEST['tableau_dispomajeur']);
+        $valeur_dispomajeur = $_REQUEST['dispomajeur'];
         $NC_Projet_CRUD = new NC_PROJET_CRUD();
+        
+        $default_value = $NC_Projet_CRUD->result("`dispo-majeur`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages", "`id`=".$valeur_dispomajeur);
 
-        for($tab = 0 ; $tab < $taille_tableau; $tab++){
-            for($boucle = 0; $boucle < sizeof($valeur_dispomajeur) ; $boucle++){
-                if($tab == $valeur_dispomajeur[$boucle]){
-                    $NC_Projet_CRUD->update("dispo-majeur","1",$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$valeur_dispomajeur[$boucle]);
-                    $boucle = sizeof($valeur_dispomajeur);
-                }
-                else{
-                    $NC_Projet_CRUD->update("dispo-majeur","0",$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$tab);
-                }
-            }
+        if($default_value[0]['dispo-majeur'] == 0){
+            $NC_Projet_CRUD->update("dispo-majeur","1",$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$valeur_dispomajeur);
         }
+        else{
+            $NC_Projet_CRUD->update("dispo-majeur","0",$wpdb->prefix.NC_PROJET_BASENAME."_voyages",$valeur_dispomajeur);
+        }
+
         print "Mise à jour faite !";
     }
 

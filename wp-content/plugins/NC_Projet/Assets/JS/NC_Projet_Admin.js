@@ -58,17 +58,9 @@ jQuery( document ).ready(function(){
         e.stopPropagation();
         e.preventDefault();
 
-
         var _this = jQuery(this);
-        var select_note = _this.data();
-        // for(var boucle = 0 ; boucle < document.getElementsByClassName('PaysNote').length ; boucle++){
-        //     if(select_note == null){
-        //         select_note = document.querySelectorAll('.PaysNote')[boucle].value;
-        //     }
-        //     else{
-        //         select_note = select_note+","+document.querySelectorAll('.PaysNote')[boucle].value;
-        //     }
-        // }
+        var select_note = _this.val();
+        console.log(select_note);
 
         let formData = new FormData();
         formData.append('action', 'voyagesnote');
@@ -99,18 +91,17 @@ jQuery( document ).ready(function(){
 
     })
 
-    jQuery('.DispoMajeur').on('change', function(e){    
+    jQuery('input[type="checkbox"]').on('change', function(e){    
         e.stopPropagation();
         e.preventDefault();
 
         var _this = jQuery(this);
-        var select_dispomajeur = _this.data();
+        var select_dispomajeur = _this.val();
 
         let formData = new FormData();
         formData.append('action', 'voyagesmajeur');
         formData.append('security', adminscript.security);
-        formData.append('tableau_dispomajeur', select_dispomajeur);
-        formData.append('taille_tableau', document.getElementsByClassName('DispoMajeur').length);
+        formData.append('dispomajeur', select_dispomajeur);
 
         jQuery.ajax({
             url: ajaxurl,
