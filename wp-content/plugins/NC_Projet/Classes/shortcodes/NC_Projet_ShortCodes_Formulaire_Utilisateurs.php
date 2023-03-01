@@ -5,10 +5,9 @@ add_shortcode('FORMULAIRE_UTILISATEUR', array('NC_Projet_ShortCodes_Formulaires_
 class NC_Projet_ShortCodes_Formulaires_Utilisateurs{
     
     function display($attr){
-
         $date_actuel = date('Y-m-d');
         return "
-        <form id=\"formulaire_utilisateur\" class=\"formulaire_utilisateur\" method=\"POST\" action=\"http://localhost/Cours/wordpress/2023/02/21/73/\">
+        <form id=\"formulaire_utilisateur\" class=\"formulaire_utilisateur\" method=\"POST\" >
             <fieldset>
                 <legend> <?php_e('Your coords')?> </legend>
                     Nom :
@@ -28,9 +27,8 @@ class NC_Projet_ShortCodes_Formulaires_Utilisateurs{
 
                     Saisir votre Date de naissance :
                     <input type=\"date\" id=\"date-naissance\" value=\"$date_actuel\" max=\"$date_actuel\"> 
-                    <input type=\"button\" name=\"test\" class=\"test\" id=\"test\">
+                    <input type=\"button\" id=\"submit_utilisateur\" class=\"submit_utilisateur\" value=\"Envoyez\">
             </fieldset>
-            <button id=\"submit\" type=\"submit\">Submit</button>
         </form>
         ";
     }

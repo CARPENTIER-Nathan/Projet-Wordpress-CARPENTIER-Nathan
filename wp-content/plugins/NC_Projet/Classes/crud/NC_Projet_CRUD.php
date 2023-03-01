@@ -8,7 +8,6 @@ class NC_Projet_CRUD{
         if($table == $wpdb->prefix.NC_PROJET_BASENAME."_utilisateurs"){
             $wpdb->insert(  $table, 
                             array(
-                                'id' => NULL,
                                 'prenom' => $tab_valeur[0], 
                                 'nom' => $tab_valeur[1], 
                                 'civilite' => $tab_valeur[2], 
@@ -16,23 +15,32 @@ class NC_Projet_CRUD{
                                 'date-naissance' => $tab_valeur[4]
                             ) 
                         );
-            return "Insertion de l'utilisateur : OK ";
+            return "Insertion de l'utilisateur : OK";
+
         }
 
         if($table == $wpdb->prefix.NC_PROJET_BASENAME."_voyages_effectuer"){
             $wpdb->insert(  $table, 
                             array(
-                                'id' => NULL,
                                 'utilisateur' => $tab_valeur[0], 
                                 'voyages' => $tab_valeur[1]
                             ) 
                         );
-            return "Insertion des voyages effectuer par l'utilisateur : OK ";
+            return " \nInsertion des voyages effectuer par l'utilisateur ".$tab_valeur[0].": OK";
         }
         return "Erreur sur l'écriture du nom de la table ciblé";
 
     }
     
+    public function delete($table, $id){
+        global $wpdb;
+
+        if($wpdb->delete($table,['id'=>$id])){
+            return "Suppression de la base de données dans la table=".$table." avec l'id=".$id." : OK";
+        }
+        return "Problème de suppression";
+    }
+
     public function result($element_souhaiter, $table, $params = 1){
         
         global $wpdb;

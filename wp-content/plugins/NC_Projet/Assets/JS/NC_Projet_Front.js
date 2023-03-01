@@ -1,9 +1,6 @@
 jQuery( document ).ready(function(){
-
-    console.log("Console log");
-
     //  Formulaire - Utilisateur //
-    jQuery('.test').on('click', function(e){
+    jQuery('.submit_utilisateur').on('click', function(e){
         e.stopPropagation();
         e.preventDefault();
 
@@ -30,7 +27,7 @@ jQuery( document ).ready(function(){
             formData.append('civilite', civilite);
             formData.append('email', email);
             formData.append('date-naissance', date_naissance);
-            formData.append('error', 0);
+            formData.append('error', "Aucune Erreur");
         }
         else{
             formData.append('prenom', null);
@@ -53,7 +50,14 @@ jQuery( document ).ready(function(){
             type: 'post',
 
             success: function(reponse){
-                console.log(reponse);
+                if(reponse != null){
+                    window.sessionStorage.setItem('Id_User', reponse);
+                    window.location.replace("http://localhost/Cours/wordpress/2023/02/21/73/");
+                    console.log(reponse);
+                }
+                else{
+                    console.log(reponse);
+                }
                 return false;
             },
             error: function(reponse){
@@ -65,4 +69,136 @@ jQuery( document ).ready(function(){
     })
     //---------------------------//
 
+    // Formulaire - Liste Pays //
+    if(window.location.pathname == "/Cours/wordpress/2023/02/21/73/"){
+        if(window.sessionStorage.getItem('Id_User') !== null){
+            // Formulaire - Liste Pays //
+            jQuery('.submit_liste_pays').on('click', function(e){
+                e.stopPropagation();
+                e.preventDefault();
+
+                var ListePaysSelectionner = null;
+                for(var boucle = 0 ; boucle < document.getElementsByClassName('ListePays').length ; boucle++){
+
+                    if( document.getElementsByClassName('ListePays')[boucle].value == "Rien" ){
+                        boucle = document.getElementsByClassName('ListePays').length;
+                    }
+                    else{
+                        if(ListePaysSelectionner == null){
+                            ListePaysSelectionner = document.getElementsByClassName('ListePays')[boucle].value;
+                        }
+                        else{
+                            ListePaysSelectionner = ListePaysSelectionner+","+document.getElementsByClassName('ListePays')[boucle].value;
+                        }
+                    }
+                }
+
+                let formData = new FormData();
+                formData.append('action', 'formulairelistepays');
+                formData.append('security', front_script.security);
+
+                if(ListePaysSelectionner != null){
+                    formData.append('Liste_Pays', ListePaysSelectionner);
+                    formData.append('Id_User', window.sessionStorage.getItem('Id_User'));
+                    formData.append('Error', "Aucune Erreur");
+                }
+                else{
+                    formData.append('Liste_Pays', null);
+                    formData.append('Id_User', null);
+                    formData.append('Error', "Pas de pays selectionner");
+                }
+
+                console.log(ListePaysSelectionner);
+                console.log(window.sessionStorage.getItem('Id_User'));
+
+                jQuery.ajax({
+                    url: front_script.ajax_url,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    type: 'post',
+
+                    success: function(reponse){
+                        if(reponse != null){
+                            window.sessionStorage.setItem('Id_Voyages_Effectuer', reponse);
+                            window.location.replace("http://localhost/Cours/wordpress/2023/03/01/85/");
+                            console.log(reponse);
+                        }
+                        else{
+                            console.log(reponse);
+                        }
+                        return false;
+                    },
+                    error: function(reponse){
+                        window.location.replace("http://localhost/Cours/wordpress/2023/02/21/73/");
+                        console.log(reponse);
+                        return false;
+                    }
+                });
+            })
+
+            jQuery('.ListePays').on('change', function(e){
+                e.stopPropagation();
+                e.preventDefault();
+
+                var pays_select = null;
+                var verif_value = 0;
+
+                for(var boucle = 0 ; boucle < document.getElementsByClassName('ListePays').length ; boucle++){
+
+                    if( (document.getElementsByClassName('ListePays')[boucle].value != "Rien") && (boucle == verif_value)){
+                        document.getElementsByClassName('ListePays')[boucle+1].hidden = false;
+                        verif_value++;
+                    }
+                    else{
+                        document.getElementsByClassName('ListePays')[boucle+1].hidden = true;
+                        document.getElementsByClassName('ListePays')[boucle+1].value = "Rien";
+                    }
+                }
+            })
+        }
+        else{
+            window.location.replace("http://localhost/Cours/wordpress/2023/02/21/65/");
+        }
+    }
+    //-------------------------//
+
+    // Récapitulatif Final //
+    if(window.location.pathname == "/Cours/wordpress/2023/03/01/85/"){
+        if(window.sessionStorage.getItem('Id_Voyages_Effectuer') !== null){
+            let formData = new FormData();
+            formData.append('action', 'assets');
+            formData.append('security', front_script.security);
+            formData.append('Id_Utilisateur', window.sessionStorage.getItem('Id_User'));
+
+            jQuery.ajax({
+                url: front_script.ajax_url,
+                xhrFields: {
+                    withCredentials: true
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                type: 'post',
+
+                success: function(reponse){
+                    console.log(reponse);
+                    return false;
+                },
+                error: function(reponse){
+                    return false;
+                }
+            });
+        }
+        else{
+            window.location.replace("http://localhost/Cours/wordpress/2023/02/21/65/");
+        }
+
+    }
+    //--------------------//
 })
