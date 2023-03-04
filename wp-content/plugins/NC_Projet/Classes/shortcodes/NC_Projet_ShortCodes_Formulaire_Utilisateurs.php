@@ -7,29 +7,13 @@ class NC_Projet_ShortCodes_Formulaires_Utilisateurs{
     function display($attr){
         $date_actuel = date('Y-m-d');
         return "
-        <form id=\"formulaire_utilisateur\" class=\"formulaire_utilisateur\" method=\"POST\" >
-            <fieldset>
-                <legend> <?php_e('Your coords')?> </legend>
-                    Nom :
-                    <input type=\"text\" id=\"nom\" name=\"nom\" placeholder=\"Saisir votre Nom\">
+        <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>
 
-                    Prenom :
-                    <input type=\"text\" id=\"prenom\" name=\"prenom\" placeholder=\"Saisir votre Prénom\">
+        <div id=\"inscription_utilisateur\">
+        </div>
 
-                    Email :
-                    <input type=\"text\" id=\"email\" name=\"email\" placeholder=\"Saisir votre Email\">
-
-                    Sexe : 
-                    <select id=\"sexe\" name=\"sexe\">
-                        <option value=\"Homme\"> Homme </option>
-                        <option value=\"Femme\"> Femme </option>
-                    </select>
-
-                    Saisir votre Date de naissance :
-                    <input type=\"date\" id=\"date-naissance\" value=\"$date_actuel\" max=\"$date_actuel\"> 
-                    <input type=\"button\" id=\"submit_utilisateur\" class=\"submit_utilisateur\" value=\"Envoyez\">
-            </fieldset>
-        </form>
+        <div id=\"carte\">
+        </div>
         ";
     }
 }

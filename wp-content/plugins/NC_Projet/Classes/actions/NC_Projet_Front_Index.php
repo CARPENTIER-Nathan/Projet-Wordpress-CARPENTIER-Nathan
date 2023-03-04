@@ -1,13 +1,19 @@
 <?php
 
+add_action('wp_ajax_affichageinscription', array('NC_Projet_Front_Index','Affichage_Inscription'));
+add_action('wp_ajax_nopriv_affichageinscription', array('NC_Projet_Front_Index','Affichage_Inscription'));
+
+add_action('wp_ajax_affichagecarte', array('NC_Projet_Front_Index','Affichage_Carte'));
+add_action('wp_ajax_nopriv_affichagecarte', array('NC_Projet_Front_Index','Affichage_Carte'));
+
 add_action('wp_ajax_formulaireutilisateur', array('NC_Projet_Front_Index','Inscription_Utilisateur'));
 add_action('wp_ajax_nopriv_formulaireutilisateur', array('NC_Projet_Front_Index','Inscription_Utilisateur'));
 
 add_action('wp_ajax_formulairelistepays', array('NC_Projet_Front_Index','Inscription_ListePays'));
 add_action('wp_ajax_nopriv_formulairelistepays', array('NC_Projet_Front_Index','Inscription_ListePays'));
 
-add_action('wp_ajax_assets', array('NC_Projet_Front_Index','assets'));
-add_action('wp_ajax_nopriv_assets', array('NC_Projet_Front_Index','assets'));
+add_action('wp_ajax_affichageresultat', array('NC_Projet_Front_Index','Affichage_Resultat'));
+add_action('wp_ajax_nopriv_affichageresultat', array('NC_Projet_Front_Index','Affichage_Resultat'));
 
 add_action('wp_ajax_getvalue', array('NC_Projet_Front_Index','GetValue'));
 add_action('wp_ajax_nopriv_getvalue', array('NC_Projet_Front_Index','GetValue'));
@@ -15,6 +21,77 @@ add_action('wp_ajax_nopriv_getvalue', array('NC_Projet_Front_Index','GetValue'))
 class NC_Projet_Front_Index{
 
     // Page Utilisateur //
+    public static function Affichage_Inscription(){
+        $date_actuel = date('Y-m-d');
+
+        print "
+        <form id=\"formulaire_utilisateur\" class=\"formulaire_utilisateur\" method=\"POST\" >
+            <fieldset>
+                <legend> <?php_e('Your coords')?> </legend>
+                    Nom :
+                    <input type=\"text\" id=\"nom\" name=\"nom\" placeholder=\"Saisir votre Nom\">
+
+                    Prenom :
+                    <input type=\"text\" id=\"prenom\" name=\"prenom\" placeholder=\"Saisir votre Prénom\">
+
+                    Email :
+                    <input type=\"text\" id=\"email\" name=\"email\" placeholder=\"Saisir votre Email\">
+
+                    Sexe : 
+                    <select id=\"sexe\" name=\"sexe\">
+                        <option value=\"Homme\"> Homme </option>
+                        <option value=\"Femme\"> Femme </option>
+                    </select>
+
+                    Saisir votre Date de naissance :
+                    <input type=\"date\" id=\"date-naissance\" value=\"$date_actuel\" max=\"$date_actuel\"> 
+                    <input type=\"button\" id=\"submit_utilisateur\" class=\"submit_utilisateur\" value=\"Envoyez\">
+            </fieldset>
+        </form>
+        ";
+        exit;
+    }
+
+    public static function Affichage_Carte(){
+        global $wpdb;
+        check_ajax_referer('ajax_nonce_security', 'security');
+        if ((!isset($_REQUEST)) || sizeof(@$_REQUEST) < 1){
+            exit;
+        }
+
+        $JSON = $_REQUEST['JSON'];
+        $JSON = stripslashes($JSON);
+        $JSON = json_decode($JSON, true);
+
+        $PaysSelectionner = "['Pays', 'NotePays'],";
+        foreach($JSON['pays'] as $TousPays){
+            $PaysSelectionner .= "['".Locale::getDisplayRegion("-".$TousPays['ISO alpha-3'], 'en')."','1'],";
+        }
+
+        print"
+        <script type=\"text/javascript\">
+          google.charts.load('current', {
+            'packages':['geochart'],
+          });
+          google.charts.setOnLoadCallback(drawRegionsMap);
+    
+          function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([
+                ".$PaysSelectionner."
+            ]);
+    
+            var options = {};
+    
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+    
+            chart.draw(data, options);
+          }
+        </script>
+        <div id=\"regions_div\" style=\"width: 900px; height: 500px;\"></div>
+        ";
+      exit;
+    }
+
     public static function Inscription_Utilisateur(){
 
         global $wpdb;
@@ -123,7 +200,7 @@ class NC_Projet_Front_Index{
 
 
     // Page Résultat Final //
-    public static function assets(){
+    public static function Affichage_Resultat(){
         
         global $wpdb;
         check_ajax_referer('ajax_nonce_security', 'security');
@@ -215,19 +292,21 @@ class NC_Projet_Front_Index{
         $result_all['utilisateur']['email'] = $result_utilisateur[0]['email'];
 
         for($boucle = 0 ; $boucle < sizeof($result_voyages_effectuer); $boucle++){
-            $result_voyages[$boucle] = $NC_Projet_CRUD->result("`pays`,`note`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages", "`id`=\"".$result_voyages_effectuer[$boucle]['voyages']."\"");
+            $result_voyages[$boucle] = $NC_Projet_CRUD->result("`pays`,`ISO alpha-3`,`note`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages", "`id`=\"".$result_voyages_effectuer[$boucle]['voyages']."\"");
         }
 
         $boucle = 0;
         foreach($result_voyages as $p){
             $result_all['pays'][$boucle]['note'] = $p[0]['note'];
             $result_all['pays'][$boucle]['pays'] = $p[0]['pays'];
+            $result_all['pays'][$boucle]['ISO alpha-3'] = $p[0]['ISO alpha-3'];
             $boucle++;
         }
 
         print json_encode($result_all);
         exit;
     }
+    //--------------------//
 }
 
 
