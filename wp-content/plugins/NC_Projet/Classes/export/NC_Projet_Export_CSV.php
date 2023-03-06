@@ -57,9 +57,11 @@
     header('Cache-Control: private', false);
     header('Content-Type: text/csv; charset=UTF-8');
 
+    $NC_Projet_Helper = new NC_Projet_Helper();
+
     foreach($inscrits as $sign){
         $sign = array_map('trimming', $sign);
-        $age = CalculAge($sign['date-naissance']);
+        $age = $NC_Projet_Helper->CalculAge($sign['date-naissance']);
 
         $fields = array(
             (string) $sign['civilite'],
@@ -80,41 +82,6 @@
 
     function trimming($val){
         return trim($val);
-    }
-
-    function CalculAge($date_naissance){
-        $date_actuel = date('Y-m-d');
-
-        $année_actuel = intval(substr($date_actuel,0,4));
-        $mois_actuel = intval(substr($date_actuel,5,2));
-        $jour_actuel = intval(substr($date_actuel,8,2));
-
-        $année_naissance = intval(substr($date_naissance,0,4));
-        $mois_naissance = intval(substr($date_naissance,5,2));
-        $jour_naissance = intval(substr($date_naissance,8,2));
-
-        if($année_naissance <= $année_actuel){
-            $age = $année_actuel - $année_naissance;
-
-            if($mois_naissance > $mois_actuel){
-                return $age-1;
-            }
-            else if($mois_naissance == $mois_actuel){
-                if($jour_naissance > $jour_actuel){
-                    return $age-1;
-                }
-                else{
-                    return $age;
-                }
-            }
-            else{
-                return $age;
-            }
-        }
-        else{
-            return "Il n'est pas encore de ce monde";
-        }
-
     }
 
 ?>

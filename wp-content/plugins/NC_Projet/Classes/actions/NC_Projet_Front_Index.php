@@ -9,6 +9,9 @@ add_action('wp_ajax_nopriv_affichagecarte', array('NC_Projet_Front_Index','Affic
 add_action('wp_ajax_formulaireutilisateur', array('NC_Projet_Front_Index','Inscription_Utilisateur'));
 add_action('wp_ajax_nopriv_formulaireutilisateur', array('NC_Projet_Front_Index','Inscription_Utilisateur'));
 
+add_action('wp_ajax_affichagelistepays', array('NC_Projet_Front_Index','Affichage_Liste_Pays'));
+add_action('wp_ajax_nopriv_affichagelistepays', array('NC_Projet_Front_Index','Affichage_Liste_Pays'));
+
 add_action('wp_ajax_formulairelistepays', array('NC_Projet_Front_Index','Inscription_ListePays'));
 add_action('wp_ajax_nopriv_formulairelistepays', array('NC_Projet_Front_Index','Inscription_ListePays'));
 
@@ -147,6 +150,71 @@ class NC_Projet_Front_Index{
     //-----------------//
 
     // Page Liste Pays //
+    public static function Affichage_Liste_Pays(){
+        global $wpdb;
+        check_ajax_referer('ajax_nonce_security', 'security');
+        if ((!isset($_REQUEST)) || sizeof(@$_REQUEST) < 1){
+            exit;
+        }
+
+        $id_user = $_REQUEST['Id_User'];
+        $NC_Projet_Helper = new NC_Projet_Helper();
+        $NC_Projet_CRUD = new NC_Projet_CRUD();
+
+        $date_naissance = $NC_Projet_CRUD->result("*", $wpdb->prefix.NC_PROJET_BASENAME."_utilisateurs", "`id`=".$id_user);
+        $age = $NC_Projet_Helper->CalculAge($date_naissance[0]['date-naissance']);
+    
+        if($age >= 16){
+            $liste_pays = $NC_Projet_CRUD->result("`id`,`pays`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages","`actif-inactif`=1");
+
+            foreach($liste_pays as $pays){
+                $lp .= "<option value=\"".$pays['id']."\">".$pays['pays']."</option>";
+             }
+     
+
+        }
+        else{
+            $liste_pays = $NC_Projet_CRUD->result("`id`,`pays`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages","`actif-inactif`=1 AND `dispo-majeur`=0");
+
+            foreach($liste_pays as $pays){
+                $lp .= "<option value=\"".$pays['id']."\">".$pays['pays']."</option>";
+             }
+     
+        }
+
+        print "
+        <form id=\"formulaire_liste_pays\" class=\"formulaire_liste_pays\" method=\"POST\" >
+            <fieldset>
+                <legend> <?php_e('Your coords')?> </legend>
+                    Veuillez choisir un ou plusieurs pays :
+                    <select class=\"ListePays\">
+                        <option value=\"Rien\">Veuillez choisir votre premier pays</option>
+                        $lp     
+                    </select>
+                    <select class=\"ListePays\" hidden>
+                        <option value=\"Rien\">Veuillez choisir votre deuxième pays</option>
+                        $lp     
+                    </select>                    
+                    <select class=\"ListePays\" hidden>
+                        <option value=\"Rien\">Veuillez choisir votre troisième pays</option>
+                        $lp     
+                    </select>                    
+                    <select class=\"ListePays\" hidden>
+                        <option value=\"Rien\">Veuillez choisir votre quartième pays</option>
+                        $lp     
+                    </select>                    
+                    <select class=\"ListePays\" hidden>
+                        <option value=\"Rien\">Veuillez choisir votre cinquième pays</option>
+                        $lp     
+                    </select>
+                    <input type=\"button\" id=\"submit_liste_pays\" class=\"submit_liste_pays\" value=\"Envoyez\">
+            </fieldset>
+        </form>
+        ";
+        exit;
+
+    }
+
     public static function Inscription_ListePays(){
         global $wpdb;
         check_ajax_referer('ajax_nonce_security', 'security');
