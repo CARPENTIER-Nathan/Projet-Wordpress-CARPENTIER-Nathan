@@ -18,7 +18,7 @@ class NC_Projet_View_Prospects{
         $tempscreen = get_current_screen();
         $this->_screen = $tempscreen->base;
 
-       $tool_bar = $this->toolbar(); 
+        $tool_bar = $this->toolbar(); 
         ?>  
         <div class="wrap">
             <h1 class="wp-heading-inline"><?php print get_admin_page_title(); ?></h1>

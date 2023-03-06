@@ -18,6 +18,7 @@ class NC_Projet_View_List_Pays{
         $tempscreen = get_current_screen();
         $this->_screen = $tempscreen->base;
 
+        $tool_bar = $this->toolbar(); 
         ?>  
         <div class="wrap">
             <h1 class="wp-heading-inline"><?php print get_admin_page_title(); ?></h1>
@@ -80,5 +81,27 @@ class NC_Projet_View_List_Pays{
         <?php
     }
 
+    public function toolbar(){
+        ?>
+        <div>
+            <form action="<?php print admin_url('admin-post.php'); ?>" method="post">
+                <table>
+                    <tbody>
+                        <tr>
+                            <?php if(defined('NC_PROJET_PLUGIN_NAME')) ?>
+                            <td>
+                                <a class="button button-secondary" href="<?php print plugins_url(NC_PROJET_PLUGIN_NAME.'/classes/export/NC_Projet_Export_XML.php'); ?>">
+                                        <i class="fas fa-save"></i>&nbsp;XML 
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+        <hr class="wp-header-end">
+        <?php
+    }
 }
 ?>
