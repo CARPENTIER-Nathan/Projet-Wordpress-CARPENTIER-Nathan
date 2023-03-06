@@ -13,7 +13,7 @@ class NC_Projet_View_List_Pays{
         global $wpdb;
 
         $NC_Projet_CRUD = new NC_PROJET_CRUD();
-        $liste_pays = $NC_Projet_CRUD->result("`id`,`pays`,`ISO alpha-3`,`note`,`dispo-majeur`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages");
+        $liste_pays = $NC_Projet_CRUD->result("*", $wpdb->prefix.NC_PROJET_BASENAME."_voyages");
 
         $tempscreen = get_current_screen();
         $this->_screen = $tempscreen->base;
@@ -50,27 +50,52 @@ class NC_Projet_View_List_Pays{
                         <?php 
                         
                         foreach($liste_pays as $pays){
-                            print("<tr>");
-                                print("<td>".$pays["pays"]."</td>");
-                                print("<td>".$pays["ISO alpha-3"]."</td>");
-                                print("<td> <select class=\"PaysNote\">");
-                                for($i = 0; $i <= 5; $i++){
-                                    if($i == $pays["note"]){
-                                        printf("<option value=\"%d:%d\" selected> %d </option>",$pays["id"],$i,$i);
+                            if($pays["actif-inactif"] == 1){
+                                print("<tr>");
+                                    print("<td>".$pays["pays"]."</td>");
+                                    print("<td>".$pays["ISO alpha-3"]."</td>");
+                                    print("<td> <select class=\"PaysNote\">");
+                                    for($i = 0; $i <= 5; $i++){
+                                        if($i == $pays["note"]){
+                                            printf("<option value=\"%d:%d\" selected> %d </option>",$pays["id"],$i,$i);
+                                        }
+                                        else{
+                                            printf("<option value=\"%d:%d\"> %d </option>",$pays["id"],$i,$i);
+                                        }
+                                    }
+                                    print("</select> </td>");
+
+                                    if($pays["dispo-majeur"] == 1){
+                                        printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\" checked> </td>",$pays["id"]);
                                     }
                                     else{
-                                        printf("<option value=\"%d:%d\"> %d </option>",$pays["id"],$i,$i);
+                                        printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\"> </td>",$pays["id"]);
                                     }
-                                }
-                                print("</select> </td>");
+                                print("</tr>");
+                            }
+                            else{
+                                print("<tr>");
+                                    print("<td>".$pays["pays"]."</td>");
+                                    print("<td>".$pays["ISO alpha-3"]."</td>");
+                                    print("<td> <select class=\"PaysNote\" disabled>");
+                                    for($i = 0; $i <= 5; $i++){
+                                        if($i == $pays["note"]){
+                                            printf("<option value=\"%d:%d\" selected> %d </option>",$pays["id"],$i,$i);
+                                        }
+                                        else{
+                                            printf("<option value=\"%d:%d\"> %d </option>",$pays["id"],$i,$i);
+                                        }
+                                    }
+                                    print("</select> </td>");
 
-                                if($pays["dispo-majeur"] == 1){
-                                    printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\" checked> </td>",$pays["id"]);
-                                }
-                                else{
-                                    printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\"> </td>",$pays["id"]);
-                                }
-                            print("</tr>");
+                                    if($pays["dispo-majeur"] == 1){
+                                        printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\" checked disabled> </td>",$pays["id"]);
+                                    }
+                                    else{
+                                        printf("<td> <input type=\"checkbox\" class=\"DispoMajeur\" value=\"%d\" disabled> </td>",$pays["id"]);
+                                    }
+                                print("</tr>"); 
+                            }
                         }
 
                         ?>
