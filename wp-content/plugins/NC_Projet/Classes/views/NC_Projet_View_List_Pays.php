@@ -51,7 +51,7 @@ class NC_Projet_View_List_Pays{
                         
                         foreach($liste_pays as $pays){
                             if($pays["actif-inactif"] == 1){
-                                print("<tr>");
+                                printf("<tr id=\"%d\">", $pays['id']);
                                     print("<td>".$pays["pays"]."</td>");
                                     print("<td>".$pays["ISO alpha-3"]."</td>");
                                     print("<td> <select class=\"PaysNote\">");
@@ -74,7 +74,7 @@ class NC_Projet_View_List_Pays{
                                 print("</tr>");
                             }
                             else{
-                                print("<tr>");
+                                printf("<tr id=\"%d\">", $pays['id']);
                                     print("<td>".$pays["pays"]."</td>");
                                     print("<td>".$pays["ISO alpha-3"]."</td>");
                                     print("<td> <select class=\"PaysNote\" disabled>");
