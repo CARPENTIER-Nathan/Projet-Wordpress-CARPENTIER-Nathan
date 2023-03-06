@@ -63,10 +63,12 @@ class NC_Projet_Front_Index{
         $JSON = stripslashes($JSON);
         $JSON = json_decode($JSON, true);
 
-        $PaysSelectionner = "['Pays', 'NotePays'],";
+        $PaysSelectionner = "['Country'],";
         foreach($JSON['pays'] as $TousPays){
-            $PaysSelectionner .= "['".Locale::getDisplayRegion("-".$TousPays['ISO alpha-3'], 'en')."','1'],";
+            $PaysSelectionner .= "['".Locale::getDisplayRegion("-".$TousPays['ISO alpha-3'], 'en')."'],";
         }
+
+        // var_dump(geoip_country_name_by_name($JSON['pays'][0]['ISO alpha-3']));
 
         print"
         <script type=\"text/javascript\">
