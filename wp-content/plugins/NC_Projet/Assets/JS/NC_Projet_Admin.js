@@ -59,8 +59,12 @@ jQuery( document ).ready(function(){
         e.preventDefault();
 
         var _this = jQuery(this);
+
         var select_note = _this.val();
-        console.log(select_note);
+        var split = _this.val().split(":");
+        var ligne = "#"+split[0];
+
+        jQuery(ligne).fadeOut();
 
         let formData = new FormData();
         formData.append('action', 'voyagesnote');
@@ -80,6 +84,7 @@ jQuery( document ).ready(function(){
             type: 'post',
 
             success: function(reponse){
+                jQuery(ligne).fadeIn();
                 console.log(reponse);
                 return false;
             },
@@ -97,6 +102,7 @@ jQuery( document ).ready(function(){
 
         var _this = jQuery(this);
         var select_dispomajeur = _this.val();
+        jQuery("#"+_this.val()).fadeOut();
 
         let formData = new FormData();
         formData.append('action', 'voyagesmajeur');
@@ -115,6 +121,7 @@ jQuery( document ).ready(function(){
             type: 'post',
 
             success: function(reponse){
+                jQuery("#"+_this.val()).fadeIn();
                 console.log(reponse);
                 return false;
             },
