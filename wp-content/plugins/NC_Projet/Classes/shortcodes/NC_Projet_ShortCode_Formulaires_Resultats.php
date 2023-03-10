@@ -11,8 +11,6 @@ class NC_Projet_ShortCodes_Formulaires_Resultats{
         <div id=\"resultat_final\">
 
         </div>
-
-        <input type=\"button\" id=\"test\">
         ";
     }
 }

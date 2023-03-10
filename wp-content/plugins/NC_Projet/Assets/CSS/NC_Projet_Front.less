@@ -1,0 +1,163 @@
+@import (css) "NC_Projet_Front.css";
+@import (less, reference) "mixin.less";
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-regular-400.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-regular-400.ttf") format("truetype"); }
+  
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-solid-900.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-solid-900.ttf") format("truetype"); }
+  
+@font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-display: block;
+    font-weight: 400;
+    src: url("../font/fontawesome-free-6.2.1-web/webfonts/fa-brands-400.woff2") format("woff2"), url("../font/fontawesome-free-6.2.1-web/webfonts/fa-brands-400.ttf") format("truetype"); }
+
+  
+@background-color: rgb(215,215,215);
+@color: rgb(105,105,105);
+@police-ecriture: "Comic Sans MS", cursive;
+
+// Toutes les pages //
+.entry-title{
+    text-align: center;
+    font-family: @police-ecriture;
+}
+
+fieldset{
+    border: 5 solid;
+    background-color: rgb(165,165,165);
+    
+    margin: 5% 1%;
+    width: auto;
+    height: auto;
+}
+
+input[type="text"]{
+    font-family: @police-ecriture;
+    font-size: medium;
+    color: @color;
+    background-color: @background-color;
+}
+
+input[type="button"]{
+    font-family: @police-ecriture;
+    font-size: medium;
+    color: @color;
+    background-color: @background-color;
+}
+
+input[type="button"]:hover{
+    color: rgb(9, 122, 209);
+    background-color: rgb(209, 228, 221);
+    font-size: large;
+}
+
+select{
+    font-family: @police-ecriture;
+    font-size: medium;
+    color: @color;
+    background-color: @background-color;
+}
+//-----------------//
+
+
+// Page Utilisateur //
+
+    // Partie Inscription //
+    #inscription_utilisateur{
+        width: 100%;
+        height: 100%;
+    }
+
+    input#date-naissance{
+        font-family: @police-ecriture;
+        font-size: medium;
+        color: @color;
+        background-color: @background-color;
+    }
+    //--------------------//
+
+    // Partie Carte Monde //
+    #carte{
+        width: 100%;
+        height: 100%;
+    }
+
+    #region_div{
+        width: 90%; 
+        height: 100%;
+    }
+    //--------------------//
+//-----------------//
+
+// Page Liste Pays //
+select.ListePays{
+
+    margin-top: 5px;
+    &:hover{
+        .opacity(1);
+    }
+    &:not(:hover){
+        .opacity(0.7);
+    }
+
+}
+//-----------------//
+
+// Page Resultat //
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+i{
+    width: 23px;
+    height: 23px;
+}
+
+i.etoile_rempli::before{
+    width: 23px;
+    height: 23px;
+
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    content: "\f005";
+    color: rgb(255, 255, 127);
+}
+
+i.etoile_vide::before{
+    width: 23px;
+    height: 23px;
+
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    content: "\f005";
+    color: rgb(127, 127, 127);
+}
+//---------------//

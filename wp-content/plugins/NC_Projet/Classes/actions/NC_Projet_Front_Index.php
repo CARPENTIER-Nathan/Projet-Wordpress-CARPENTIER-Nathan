@@ -90,7 +90,7 @@ class NC_Projet_Front_Index{
             chart.draw(data, options);
           }
         </script>
-        <div id=\"regions_div\" style=\"width: 900px; height: 500px;\"></div>
+        <div id=\"regions_div\"></div>
         ";
       exit;
     }
@@ -286,40 +286,17 @@ class NC_Projet_Front_Index{
             $etoiles = "";
             for($nb_etoiles = 0; $nb_etoiles < 5 ; $nb_etoiles++){
                 if($nb_etoiles < $json['pays'][$boucle]['note']){
-                    $etoiles .= "&#9733;";
+                    $etoiles .= "<i class=\"etoile_rempli\"> </i>";
                 }
                 else{
-                    $etoiles .= "&#10025;";
+                    $etoiles .= "<i class=\"etoile_vide\"> </i>";
                 }
             }
 
-            $pays_formulaire .= "Note : ".$etoiles." | Pays : ".$json['pays'][$boucle]['pays']."<br>";
+            $pays_formulaire .= "<div class=\"data_pays\">Note : ".$etoiles." | Pays : ".$json['pays'][$boucle]['pays']."</div><br>";
         }
 
         print "             
-        <style>
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-          }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-        </style>
         <script id=\"Script_Modal\" type=\"text/x-handlebars-template\" src=\"".plugins_url(NC_PROJET_PLUGIN_NAME."/Assets/HandleBar/NC_Projet_Resultat_Modal.hbs")."\"></script>
 
         <form id=\"formulaire_resultat\" class=\"formulaire_resultat\" method=\"POST\" >

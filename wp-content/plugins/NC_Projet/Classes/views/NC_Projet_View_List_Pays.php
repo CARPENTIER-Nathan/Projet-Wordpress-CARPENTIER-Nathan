@@ -74,7 +74,7 @@ class NC_Projet_View_List_Pays{
                                 print("</tr>");
                             }
                             else{
-                                printf("<tr id=\"%d\">", $pays['id']);
+                                printf("<tr id=\"%d\" style=\"opacity:0.3;\">", $pays['id']);
                                     print("<td>".$pays["pays"]."</td>");
                                     print("<td>".$pays["ISO alpha-3"]."</td>");
                                     print("<td> <select class=\"PaysNote\" disabled>");
