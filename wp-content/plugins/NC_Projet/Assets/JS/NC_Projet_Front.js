@@ -76,7 +76,7 @@ jQuery( document ).ready(function(s){
                                 return false;
                             },
                             error: function(reponse){
-                                //window.location.replace("http://localhost/Cours/wordpress/2023/02/21/65/");
+                                window.location.replace("http://localhost/Cours/wordpress/2023/02/21/65/");
                                 console.log(reponse);
                                 return false;
                             }
@@ -267,7 +267,9 @@ jQuery( document ).ready(function(s){
                                     var modal = Handlebars.compile(source);
                                     jQuery("#Modal").html(modal(JSON.parse(rp)));
 
-                                    jQuery('#submit_resultat').on('click', function(e){
+                                    console.log(rp);
+
+                                    jQuery('#hd-from-final').on('click', function(e){
                                         document.getElementById('Modal').style.display = "block";
                                     });
                         
