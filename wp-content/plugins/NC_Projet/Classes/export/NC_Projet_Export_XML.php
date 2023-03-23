@@ -35,7 +35,7 @@
     
     print $xml->asXML();
 
-    $filename = sprintf('Insset_Export_XML_%s.xml', date('d-m-Y_His'));
+    $filename = sprintf('NC_Projet_Export_XML_%s.xml', date('d-m-Y_His'));
     header('Content-Disposition: attachment; filename="'. $filename. '";');
     header('Content-Transfer-Encoding: binary');
     ob_end_flush();
