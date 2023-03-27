@@ -30,12 +30,6 @@ jQuery( document ).ready(function(s){
 
                         formData.append('action', 'formulaireutilisateur');
 
-                        console.log(prenom);
-                        console.log(nom);
-                        console.log(email);
-                        console.log(civilite);
-                        console.log(date_naissance);
-
                         if( (prenom != "") && (nom != "") && (civilite != "") && (email != "") && (date_naissance != "")){
                             formData.append('prenom', prenom);
                             formData.append('nom', nom);
@@ -81,7 +75,7 @@ jQuery( document ).ready(function(s){
                                 return false;
                             }
                         });
-            });
+                    });
                 }
             });
         }
@@ -269,7 +263,7 @@ jQuery( document ).ready(function(s){
 
                                     console.log(rp);
 
-                                    jQuery('#hd-from-final').on('click', function(e){
+                                    jQuery('#submit_resultat').on('click', function(e){
                                         document.getElementById('Modal').style.display = "block";
                                     });
                         

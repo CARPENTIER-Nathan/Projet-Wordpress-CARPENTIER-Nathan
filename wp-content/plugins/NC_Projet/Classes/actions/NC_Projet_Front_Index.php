@@ -164,7 +164,7 @@ class NC_Projet_Front_Index{
         $date_naissance = $NC_Projet_CRUD->result("*", $wpdb->prefix.NC_PROJET_BASENAME."_utilisateurs", "`id`=".$id_user);
         $age = $NC_Projet_Helper->CalculAge($date_naissance[0]['date-naissance']);
     
-        if($age >= 16){
+        if($age >= 18){
             $liste_pays = $NC_Projet_CRUD->result("`id`,`pays`", $wpdb->prefix.NC_PROJET_BASENAME."_voyages","`actif-inactif`=1");
 
             foreach($liste_pays as $pays){
